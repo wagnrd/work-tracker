@@ -20,10 +20,11 @@ jobs:
       - name: Install dependencies
         run: sudo apt install libgtk-4-dev build-essential libadwaita-1-dev
       - name: Build
-        run: cargo build -r
+        run: |
+          cargo build -r
+          mv ./target/release/work-tracker ./target/release/work-tracker-linux
       - name: Release
         if: startsWith(github.ref, 'refs/tags/')
-        run: mv ./target/release/work-tracker ./target/release/work-tracker-linux
         uses: softprops/action-gh-release@v1
         with:
           files: ./target/release/work-tracker-linux
@@ -41,10 +42,11 @@ jobs:
       - name: Install dependencies
         run: brew install gtk4 libadwaita
       - name: Build
-        run: cargo build -r
+        run: |
+          cargo build -r
+          mv ./target/release/work-tracker ./target/release/work-tracker-macos
       - name: Release
         if: startsWith(github.ref, 'refs/tags/')
-        run: mv ./target/release/work-tracker ./target/release/work-tracker-macos
         uses: softprops/action-gh-release@v1
         with:
           files: ./target/release/work-tracker-macos
