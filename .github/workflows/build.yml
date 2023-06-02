@@ -6,6 +6,7 @@ on:
 name: Build and release
 jobs:
   build-linux:
+    if: false
     name: Build for Linux
     runs-on: ubuntu-latest
     steps:
@@ -22,8 +23,8 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: v0.1-test
-          tag_name: v0.1-test
+          name: v0.1
+          tag_name: v0.1
           body: A test build. Can be ignored.
           files: ./target/release/work-tracker
 
@@ -44,7 +45,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: v0.1-test
-          tag_name: v0.1-test
+          name: v0.1
+          tag_name: v0.1
           body: A test build. Can be ignored.
           files: ./target/release/work-tracker
