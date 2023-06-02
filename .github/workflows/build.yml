@@ -13,6 +13,7 @@ jobs:
       - name: Install Rust
         uses: actions-rs/toolchain@v1.0.6
         with:
+          profile: minimal
           toolchain: stable
       - name: Install dependencies
         run: sudo apt install libgtk-4-dev build-essential libadwaita-1-dev
@@ -32,6 +33,7 @@ jobs:
       - name: Install Rust
         uses: actions-rs/toolchain@v1.0.6
         with:
+          profile: minimal
           toolchain: stable
       - name: Install dependencies
         run: brew install gtk4 libadwaita
