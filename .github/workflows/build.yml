@@ -18,6 +18,7 @@ jobs:
           toolchain: stable
       - name: Install dependencies
         run: sudo apt install libglib2.0-dev libgtk-4-dev build-essential libadwaita-1-dev
+      - run: ldconfig -v | grep libglib
       - name: Build
         run: |
           cargo build -r
@@ -29,6 +30,7 @@ jobs:
           files: ./target/release/work-tracker-linux
 
   build-macos:
+    if: false
     name: Build for macOS
     runs-on: macos-latest
     steps:
