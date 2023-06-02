@@ -17,7 +17,7 @@ jobs:
           profile: minimal
           toolchain: stable
       - name: Install dependencies
-        run: sudo apt install libgtk-4-dev build-essential libadwaita-1-dev
+        run: sudo apt install libglib2.0-dev libgtk-4-dev build-essential libadwaita-1-dev
       - run: sudo ldconfig -v | grep libglib
       - name: Build
         run: |
