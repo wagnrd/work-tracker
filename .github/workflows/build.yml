@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1.0.6
+        with:
+          toolchain: stable
       - name: Install dependencies
         run: sudo apt install libgtk-4-dev build-essential libadwaita-1-dev
       - name: Build
@@ -25,6 +29,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1.0.6
+        with:
+          toolchain: stable
       - name: Install dependencies
         run: brew install gtk4 libadwaita
       - name: Build
