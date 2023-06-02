@@ -35,6 +35,7 @@ jobs:
         with:
           profile: minimal
           toolchain: stable
+          components: rustc, rust-std
       - name: Install dependencies
         run: brew install gtk4 libadwaita
       - name: Build
