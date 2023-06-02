@@ -16,7 +16,7 @@ checksum = "b9ccdd8f2a161be9bd5c023df56f1b2a0bd1d83872ae53b71a84a12c9bf6e842"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.18",
+ "syn 2.0.17",
 ]
 
 [[package]]
@@ -163,7 +163,7 @@ checksum = "89ca545a94061b6365f2c7355b4b32bd20df3ff95f02da9329b34ccc3bd6ee72"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.18",
+ "syn 2.0.17",
 ]
 
 [[package]]
@@ -514,9 +514,9 @@ dependencies = [
 
 [[package]]
 name = "libadwaita"
-version = "0.3.1"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b1c4efd2020a4fcedbad2c4a97de97bf6045e5dc49d61d5a5d0cfd753db60700"
+checksum = "e82776542b73ac5691b2bddf3e2aaf0157d34f35193fb522de2fc258006c1785"
 dependencies = [
  "bitflags",
  "futures-channel",
@@ -533,9 +533,9 @@ dependencies = [
 
 [[package]]
 name = "libadwaita-sys"
-version = "0.3.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0727b85b4fe2b1bed5ac90df6343de15cbf8118bfb96d7c3cc1512681a4b34ac"
+checksum = "91be74a61f26efa6946c02dad76eb4cd3021addb0ff85dde445c1cd41d2eca2d"
 dependencies = [
  "gdk4-sys",
  "gio-sys",
@@ -570,14 +570,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "abb12e687cfb44aa40f41fc3978ef76448f9b6038cad6aef4259d3c095a2382e"
 dependencies = [
  "cfg-if",
-]
-
-[[package]]
-name = "login-client"
-version = "0.1.0"
-dependencies = [
- "relm4",
- "relm4-components",
 ]
 
 [[package]]
@@ -663,7 +655,7 @@ checksum = "39407670928234ebc5e6e580247dd567ad73a3578460c5990f9503df207e8f07"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.18",
+ "syn 2.0.17",
 ]
 
 [[package]]
@@ -738,9 +730,9 @@ dependencies = [
 
 [[package]]
 name = "relm4"
-version = "0.6.0-beta.1"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f169f698ce2e487eed2306898fcf262224a287d0e81480db4190e74cfec412cf"
+checksum = "c80ef6bb7a142b6aaa01b96961c33127fffcda4741eb0ad82f07e18c9186681d"
 dependencies = [
  "async-trait",
  "flume",
@@ -756,9 +748,9 @@ dependencies = [
 
 [[package]]
 name = "relm4-components"
-version = "0.6.0-beta.1"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "734838f188ee58954351c75175cb5ba6e9e67f90576b7fb90b928b2cb6043e1d"
+checksum = "29a7265580b2a185254b9f129bff5fdca11a00730a6e075628c93502a4eced81"
 dependencies = [
  "once_cell",
  "relm4",
@@ -767,13 +759,13 @@ dependencies = [
 
 [[package]]
 name = "relm4-macros"
-version = "0.6.0-beta.1"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7fa06febb3685960e7c1c44e21e44a3829325940b31d1e91391a43c32020c201"
+checksum = "848a6e1b4954b7aa8155d4a234516d46ed543a614666adc1ea73a922bc841e2a"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 1.0.109",
+ "syn 2.0.17",
 ]
 
 [[package]]
@@ -849,9 +841,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "2.0.18"
+version = "2.0.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "32d41677bcbe24c20c52e7c70b0d8db04134c5d1066bf98662e2871ad200ea3e"
+checksum = "45b6ddbb36c5b969c182aec3c4a0bce7df3fbad4b77114706a49aacc80567388"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -894,7 +886,7 @@ checksum = "f9456a42c5b0d803c8cd86e73dd7cc9edd429499f37a3550d286d5e86720569f"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.18",
+ "syn 2.0.17",
 ]
 
 [[package]]
@@ -963,7 +955,7 @@ checksum = "0f57e3ca2a01450b1a921183a9c9cbfda207fd822cef4ccb00a65402cbba7a74"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.18",
+ "syn 2.0.17",
 ]
 
 [[package]]
@@ -992,7 +984,7 @@ checksum = "ca029746fbe0efda3298205de77bf759d7fef23ac97902641e0b49a623b0455f"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.18",
+ "syn 2.0.17",
 ]
 
 [[package]]
@@ -1040,7 +1032,7 @@ dependencies = [
  "once_cell",
  "proc-macro2",
  "quote",
- "syn 2.0.18",
+ "syn 2.0.17",
  "wasm-bindgen-shared",
 ]
 
@@ -1062,7 +1054,7 @@ checksum = "e128beba882dd1eb6200e1dc92ae6c5dbaa4311aa7bb211ca035779e5efc39f8"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.18",
+ "syn 2.0.17",
  "wasm-bindgen-backend",
  "wasm-bindgen-shared",
 ]
@@ -1168,4 +1160,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "61de7bac303dc551fe038e2b3cef0f571087a47571ea6e79a87692ac99b99699"
 dependencies = [
  "memchr",
+]
+
+[[package]]
+name = "work-tracker"
+version = "0.1.0"
+dependencies = [
+ "relm4",
+ "relm4-components",
 ]

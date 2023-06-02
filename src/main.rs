@@ -1,10 +1,9 @@
+mod app;
+
+use crate::app::App;
 use relm4::RelmApp;
 
-use crate::application::App;
-
-mod application;
-
 fn main() {
-    let app = RelmApp::new("de.wagnrd.login-client");
+    let app = RelmApp::new("de.wagnrd.work-tracker");
     app.run::<App>(());
 }
