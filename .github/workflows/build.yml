@@ -22,7 +22,9 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: v0.1
+          name: v0.1-test
+          tag_name: v0.1-test
+          body: A test build. Can be ignored.
           files: ./target/release/work-tracker
 
   build-macos:
@@ -35,7 +37,6 @@ jobs:
         with:
           profile: minimal
           toolchain: stable
-          components: rustc, rust-std
       - name: Install dependencies
         run: brew install gtk4 libadwaita
       - name: Build
@@ -43,5 +44,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: v0.1
+          name: v0.1-test
+          tag_name: v0.1-test
+          body: A test build. Can be ignored.
           files: ./target/release/work-tracker
