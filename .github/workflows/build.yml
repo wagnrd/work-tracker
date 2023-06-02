@@ -1,0 +1,36 @@
+on:
+  push:
+    branches:
+      - main
+
+name: Build
+jobs:
+  build-linux:
+    name: Build for Linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Rust
+        uses: actions-rs/toolchain@1
+      - name: Install dependencies
+        run: sudo apt install libgtk-4-dev build-essential libadwaita-1-dev
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: -r
+
+  build-macos:
+    name: Build for macOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Rust
+        uses: actions-rs/toolchain@1
+      - name: Install dependencies
+        run: brew install gtk4 libadwaita
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: -r
