@@ -13,8 +13,14 @@ jobs:
       - name: Install dependencies
         run: sudo apt install libgtk-4-dev build-essential libadwaita-1-dev
       - name: Build
-        uses: actions-rs/cargo@v1.0.1
-        with:
-          command: build
-          args: -r
+        run: cargo build -r
 
+  build-macos:
+    name: Build for macOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: brew install gtk4 libadwaita
+      - name: Build
+        run: cargo build -r
