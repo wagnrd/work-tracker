@@ -18,7 +18,7 @@ Currently only MacOS will be supported. But Linux is a future target as well.
 ## Building from source
 ### Dependencies
 - Rust 1.69+
-- Gtk4
+- Gtk4 (with GLib >= 2.74)
 - Libadwaita
 
 ### Installation
