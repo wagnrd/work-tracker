@@ -1,15 +1,15 @@
 use relm4::actions::{ActionGroupName, ActionName};
 
-pub struct WelcomeScreenActionGroupName;
+pub struct StartButtonActionGroupName;
 
-impl ActionGroupName for WelcomeScreenActionGroupName {
-    const NAME: &'static str = "welcome_screen";
+impl ActionGroupName for StartButtonActionGroupName {
+    const NAME: &'static str = "start_button";
 }
 
 pub struct CustomTimeActionName;
 
 impl ActionName for CustomTimeActionName {
-    type Group = WelcomeScreenActionGroupName;
+    type Group = StartButtonActionGroupName;
     type Target = ();
     type State = ();
     const NAME: &'static str = "custom_time";
@@ -18,7 +18,7 @@ impl ActionName for CustomTimeActionName {
 pub struct NowActionName;
 
 impl ActionName for NowActionName {
-    type Group = WelcomeScreenActionGroupName;
+    type Group = StartButtonActionGroupName;
     type Target = ();
     type State = ();
     const NAME: &'static str = "now";
