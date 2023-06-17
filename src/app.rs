@@ -1,4 +1,4 @@
-use crate::welcome_view::WelcomeView;
+use crate::screens::WelcomeScreen;
 use relm4::adw::prelude::*;
 use relm4::{
     adw, gtk, Component, ComponentController, ComponentParts, ComponentSender, Controller,
@@ -36,10 +36,10 @@ impl SimpleComponent for App {
         root.set_content(Some(&vbox));
         vbox.append(&adw::HeaderBar::default());
 
-        let welcome_view: Controller<WelcomeView> = WelcomeView::builder()
+        let welcome_screen: Controller<WelcomeScreen> = WelcomeScreen::builder()
             .launch(())
             .forward(sender.input_sender(), identity);
-        vbox.append(welcome_view.widget());
+        vbox.append(welcome_screen.widget());
 
         let model = App;
         let widgets = AppWidgets;

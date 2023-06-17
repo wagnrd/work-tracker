@@ -1,5 +1,5 @@
 mod app;
-mod welcome_view;
+mod screens;
 
 use crate::app::App;
 use relm4::RelmApp;
