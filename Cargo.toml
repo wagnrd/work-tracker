@@ -4,5 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+chrono = "0.4.26"
 relm4 = { version = "0.6.0", features = ["libadwaita"] }
 relm4-components = "0.6.0"

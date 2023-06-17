@@ -8,7 +8,9 @@ use std::convert::identity;
 
 pub struct App;
 
-pub struct AppWidgets;
+pub struct AppWidgets {
+    screen: Controller<WelcomeScreen>,
+}
 
 impl SimpleComponent for App {
     type Input = ();
@@ -41,8 +43,10 @@ impl SimpleComponent for App {
             .forward(sender.input_sender(), identity);
         vbox.append(welcome_screen.widget());
 
-        let model = App;
-        let widgets = AppWidgets;
+        let model = App {};
+        let widgets = AppWidgets {
+            screen: welcome_screen,
+        };
 
         ComponentParts { model, widgets }
     }

@@ -1,5 +1,6 @@
 mod app;
 mod screens;
+mod components;
 
 use crate::app::App;
 use relm4::RelmApp;

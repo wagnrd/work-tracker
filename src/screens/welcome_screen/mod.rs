@@ -1,4 +1,4 @@
 mod actions;
-mod view;
+mod component;
 
-pub use view::WelcomeScreen;
+pub use component::WelcomeScreen;
