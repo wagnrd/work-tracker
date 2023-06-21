@@ -52,7 +52,10 @@ impl SimpleComponent for Counter {
         root: &Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
-        let up_button = gtk::Button::builder().icon_name("go-up-symbolic").build();
+        let up_button = gtk::Button::builder()
+            .icon_name("go-up-symbolic")
+            .css_classes(["circular"])
+            .build();
         up_button.connect_clicked(clone!(@strong sender => move |_| {
             sender.input(CounterInput::Increase);
         }));
@@ -66,7 +69,10 @@ impl SimpleComponent for Counter {
         }));
         root.append(&entry);
 
-        let down_button = gtk::Button::builder().icon_name("go-down-symbolic").build();
+        let down_button = gtk::Button::builder()
+            .icon_name("go-down-symbolic")
+            .css_classes(["circular"])
+            .build();
         down_button.connect_clicked(clone!(@strong sender => move |_| {
             sender.input(CounterInput::Decrease);
         }));
