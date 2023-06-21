@@ -7,12 +7,14 @@ pub struct Counter {
     value: i32,
     min_value: i32,
     max_value: i32,
+    looping: bool,
 }
 
 pub struct CounterInit {
     pub max_value: i32,
     pub min_value: i32,
     pub initial_value: i32,
+    pub looping: bool,
 }
 
 pub struct CounterWidgets {
@@ -73,6 +75,7 @@ impl SimpleComponent for Counter {
             value: init.initial_value,
             max_value: init.max_value,
             min_value: init.min_value,
+            looping: init.looping,
         };
         let widgets = CounterWidgets { entry };
 
@@ -84,11 +87,15 @@ impl SimpleComponent for Counter {
             CounterInput::Increase => {
                 if self.value < self.max_value {
                     self.value += 1;
+                } else if self.looping {
+                    self.value = self.min_value;
                 }
             }
             CounterInput::Decrease => {
                 if self.value > self.min_value {
-                    self.value -= 1
+                    self.value -= 1;
+                } else if self.looping {
+                    self.value = self.max_value;
                 }
             }
             CounterInput::EntryChanged(value) => {

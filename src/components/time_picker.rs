@@ -52,6 +52,7 @@ impl SimpleComponent for TimePicker {
                 initial_value: current_time.hour() as i32,
                 max_value: 23,
                 min_value: 0,
+                looping: true,
             })
             .forward(sender.input_sender(), |message| match message {
                 CounterOutput::ValueChanged(value) => TimePickerInput::HourChanged(value as u32),
@@ -68,6 +69,7 @@ impl SimpleComponent for TimePicker {
                 initial_value: current_time.minute() as i32,
                 max_value: 59,
                 min_value: 0,
+                looping: true,
             })
             .forward(sender.input_sender(), |message| match message {
                 CounterOutput::ValueChanged(value) => TimePickerInput::MinuteChanged(value as u32),
