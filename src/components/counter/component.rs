@@ -1,5 +1,6 @@
+use crate::components::counter::service;
 use relm4::gtk::glib::clone;
-use relm4::gtk::prelude::{BoxExt, ButtonExt, EditableExt};
+use relm4::gtk::prelude::*;
 use relm4::{gtk, ComponentParts, ComponentSender, SimpleComponent};
 
 pub struct Counter {
@@ -22,6 +23,7 @@ pub struct CounterWidgets {
 pub enum CounterInput {
     Increase,
     Decrease,
+    EntryChanged(String),
 }
 
 #[derive(Debug)]
@@ -49,16 +51,21 @@ impl SimpleComponent for Counter {
     ) -> ComponentParts<Self> {
         let up_button = gtk::Button::builder().icon_name("go-up-symbolic").build();
         up_button.connect_clicked(clone!(@strong sender => move |_| {
-            sender.input(CounterInput::Increase)
+            sender.input(CounterInput::Increase);
         }));
         root.append(&up_button);
+
         let entry = gtk::Entry::builder()
             .text(init.initial_value.to_string())
             .build();
+        entry.connect_changed(clone!(@strong sender => move |entry| {
+            sender.input(CounterInput::EntryChanged(entry.text().to_string()));
+        }));
         root.append(&entry);
+
         let down_button = gtk::Button::builder().icon_name("go-down-symbolic").build();
         down_button.connect_clicked(clone!(@strong sender => move |_| {
-            sender.input(CounterInput::Decrease)
+            sender.input(CounterInput::Decrease);
         }));
         root.append(&down_button);
 
@@ -84,14 +91,21 @@ impl SimpleComponent for Counter {
                     self.value -= 1
                 }
             }
-        }
+            CounterInput::EntryChanged(value) => {
+                let unclamped_value =
+                    service::filter_integers_from_text(value).unwrap_or(self.value);
+                self.value = num::clamp(unclamped_value, self.min_value, self.max_value);
 
-        sender
-            .output(CounterOutput::ValueChanged(self.value))
-            .unwrap();
+                sender
+                    .output(CounterOutput::ValueChanged(self.value))
+                    .unwrap();
+            }
+        }
     }
 
     fn update_view(&self, widgets: &mut Self::Widgets, _sender: ComponentSender<Self>) {
-        widgets.entry.set_text(self.value.to_string().as_str());
+        if self.value.to_string() != widgets.entry.text() {
+            widgets.entry.set_text(self.value.to_string().as_str());
+        }
     }
 }
