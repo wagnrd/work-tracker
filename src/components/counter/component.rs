@@ -8,6 +8,7 @@ pub struct Counter {
     min_value: i32,
     max_value: i32,
     looping: bool,
+    is_internal_update: bool,
 }
 
 pub struct CounterInit {
@@ -76,6 +77,7 @@ impl SimpleComponent for Counter {
             max_value: init.max_value,
             min_value: init.min_value,
             looping: init.looping,
+            is_internal_update: false,
         };
         let widgets = CounterWidgets { entry };
 
@@ -90,6 +92,8 @@ impl SimpleComponent for Counter {
                 } else if self.looping {
                     self.value = self.min_value;
                 }
+
+                self.is_internal_update = true;
             }
             CounterInput::Decrease => {
                 if self.value > self.min_value {
@@ -97,15 +101,22 @@ impl SimpleComponent for Counter {
                 } else if self.looping {
                     self.value = self.max_value;
                 }
+
+                self.is_internal_update = true;
             }
             CounterInput::EntryChanged(value) => {
-                let unclamped_value =
-                    service::filter_integers_from_text(value).unwrap_or(self.value);
-                self.value = num::clamp(unclamped_value, self.min_value, self.max_value);
+                if !self.is_internal_update {
+                    let unclamped_value =
+                        service::filter_integers_from_text(value).unwrap_or(self.value);
+                    self.value = num::clamp(unclamped_value, self.min_value, self.max_value);
+                    self.is_internal_update = true;
 
-                sender
-                    .output(CounterOutput::ValueChanged(self.value))
-                    .unwrap();
+                    sender
+                        .output(CounterOutput::ValueChanged(self.value))
+                        .unwrap();
+                } else {
+                    self.is_internal_update = false;
+                }
             }
         }
     }
