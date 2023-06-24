@@ -22,6 +22,7 @@ impl SimpleComponent for App {
     fn init_root() -> Self::Root {
         adw::Window::builder()
             .title("Login Client")
+            .application(&relm4::main_adw_application())
             .default_width(300)
             .default_height(200)
             .build()

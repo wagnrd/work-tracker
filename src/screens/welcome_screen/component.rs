@@ -1,30 +1,33 @@
-use crate::components::TimePicker;
+use crate::components::time_picker_dialog::{
+    TimePickerDialog, TimePickerDialogInit, TimePickerDialogOutput,
+};
 use crate::screens::welcome_screen::actions::{
     CustomTimeActionName, NowActionName, StartButtonActionGroupName,
 };
 use relm4::actions::{RelmAction, RelmActionGroup};
 use relm4::adw::glib::clone;
+use relm4::adw::prelude::*;
 use relm4::gtk::gio;
-use relm4::gtk::prelude::BoxExt;
 use relm4::{
     adw, gtk, Component, ComponentController, ComponentParts, ComponentSender, Controller,
     SimpleComponent,
 };
-use std::time;
 
 pub struct WelcomeScreen {
-    custom_start_time: Option<time::Instant>,
-    is_time_selector_visible: bool,
+    custom_start_time: Option<chrono::DateTime<chrono::Local>>,
+    is_time_picker_dialog_visible: bool,
 }
 
 #[derive(Debug)]
 pub enum WelcomeScreenInput {
-    StartTimeNow,
-    CustomStartTime,
+    StartTimeNowSelected,
+    CustomStartTimeSelected(chrono::DateTime<chrono::Local>),
+    ShowTimePickerDialog,
+    HideTimePickerDialog,
 }
 
 pub struct WelcomeScreenWidgets {
-    time_picker: Controller<TimePicker>,
+    dialog: Controller<TimePickerDialog>,
 }
 
 impl SimpleComponent for WelcomeScreen {
@@ -66,39 +69,55 @@ impl SimpleComponent for WelcomeScreen {
         let mut action_group = RelmActionGroup::<StartButtonActionGroupName>::new();
         let custom_time_action =
             RelmAction::<CustomTimeActionName>::new_stateless(clone!(@strong sender => move |_| {
-                sender.input(WelcomeScreenInput::CustomStartTime)
+                sender.input(WelcomeScreenInput::ShowTimePickerDialog)
             }));
         let now_action =
             RelmAction::<NowActionName>::new_stateless(clone!(@strong sender => move |_| {
-                sender.input(WelcomeScreenInput::StartTimeNow)
+                sender.input(WelcomeScreenInput::StartTimeNowSelected)
             }));
         action_group.add_action(custom_time_action);
         action_group.add_action(now_action);
         action_group.register_for_widget(start_button);
 
-        let time_picker: Controller<TimePicker> = TimePicker::builder()
-            .launch(())
-            .forward(sender.input_sender(), |message| match message {});
-        vbox.append(time_picker.widget());
+        // Time Picker Dialog
+        let dialog = TimePickerDialog::builder()
+            .launch(TimePickerDialogInit {
+                initial_time: chrono::Local::now(),
+            })
+            .forward(sender.input_sender(), |message| match message {
+                TimePickerDialogOutput::Confirmed(time) => {
+                    WelcomeScreenInput::CustomStartTimeSelected(time)
+                }
+                TimePickerDialogOutput::Canceled => WelcomeScreenInput::HideTimePickerDialog,
+            });
 
         let model = WelcomeScreen {
-            is_time_selector_visible: false,
+            is_time_picker_dialog_visible: false,
             custom_start_time: None,
         };
-        let widgets = WelcomeScreenWidgets { time_picker };
+        let widgets = WelcomeScreenWidgets { dialog };
 
         ComponentParts { model, widgets }
     }
 
     fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
         match message {
-            WelcomeScreenInput::StartTimeNow => {
-                self.custom_start_time = None;
-                println!("start time now");
+            WelcomeScreenInput::ShowTimePickerDialog => self.is_time_picker_dialog_visible = true,
+            WelcomeScreenInput::HideTimePickerDialog => self.is_time_picker_dialog_visible = false,
+            WelcomeScreenInput::StartTimeNowSelected => self.custom_start_time = None,
+            WelcomeScreenInput::CustomStartTimeSelected(time) => {
+                self.custom_start_time = Some(time);
+                println!("Custom time: {}", time);
+                self.is_time_picker_dialog_visible = false;
             }
-            WelcomeScreenInput::CustomStartTime => self.is_time_selector_visible = true,
         }
     }
 
-    fn update_view(&self, _widgets: &mut Self::Widgets, _sender: ComponentSender<Self>) {}
+    fn update_view(&self, widgets: &mut Self::Widgets, _sender: ComponentSender<Self>) {
+        if self.is_time_picker_dialog_visible {
+            widgets.dialog.widget().show();
+        } else {
+            widgets.dialog.widget().hide();
+        }
+    }
 }

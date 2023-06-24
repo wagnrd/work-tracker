@@ -1,6 +1,6 @@
 use crate::components::counter::service;
 use relm4::gtk::glib::clone;
-use relm4::gtk::prelude::*;
+use relm4::gtk::prelude::{BoxExt, ButtonExt, EditableExt};
 use relm4::{gtk, ComponentParts, ComponentSender, SimpleComponent};
 
 pub struct Counter {
@@ -44,6 +44,7 @@ impl SimpleComponent for Counter {
     fn init_root() -> Self::Root {
         gtk::Box::builder()
             .orientation(gtk::Orientation::Vertical)
+            .spacing(10)
             .build()
     }
 
@@ -54,12 +55,14 @@ impl SimpleComponent for Counter {
     ) -> ComponentParts<Self> {
         let up_button = gtk::Button::builder()
             .icon_name("go-up-symbolic")
-            .css_classes(["circular"])
+            .css_classes(["circular", "flat"])
             .build();
         up_button.connect_clicked(clone!(@strong sender => move |_| {
             sender.input(CounterInput::Increase);
         }));
-        root.append(&up_button);
+        let up_button_box = gtk::CenterBox::default();
+        up_button_box.set_center_widget(Some(&up_button));
+        root.append(&up_button_box);
 
         let entry = gtk::Entry::builder()
             .text(init.initial_value.to_string())
@@ -71,12 +74,14 @@ impl SimpleComponent for Counter {
 
         let down_button = gtk::Button::builder()
             .icon_name("go-down-symbolic")
-            .css_classes(["circular"])
+            .css_classes(["circular", "flat"])
             .build();
         down_button.connect_clicked(clone!(@strong sender => move |_| {
             sender.input(CounterInput::Decrease);
         }));
-        root.append(&down_button);
+        let down_button_box = gtk::CenterBox::default();
+        down_button_box.set_center_widget(Some(&down_button));
+        root.append(&down_button_box);
 
         let model = Counter {
             value: init.initial_value,
