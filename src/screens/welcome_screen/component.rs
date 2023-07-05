@@ -115,9 +115,9 @@ impl SimpleComponent for WelcomeScreen {
 
     fn update_view(&self, widgets: &mut Self::Widgets, _sender: ComponentSender<Self>) {
         if self.is_time_picker_dialog_visible {
-            widgets.dialog.widget().show();
+            widgets.dialog.widget().set_visible(true);
         } else {
-            widgets.dialog.widget().hide();
+            widgets.dialog.widget().set_visible(false);
         }
     }
 }
