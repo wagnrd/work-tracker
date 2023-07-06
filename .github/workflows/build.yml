@@ -20,7 +20,7 @@ jobs:
           profile: minimal
           toolchain: stable
       - name: Install dependencies
-        run: sudo dnf install gtk4-devel gcc libadwaita-devel
+        run: sudo dnf install gtk4-devel gcc libadwaita-devel -y
       - name: Build
         run: |
           cargo build -r
