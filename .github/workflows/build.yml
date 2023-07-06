@@ -7,9 +7,9 @@ on:
 name: Build and release
 jobs:
   build-linux:
-    if: false
     name: Build for Linux
     runs-on: ubuntu-latest
+    container: fedora-latest
     steps:
       - uses: actions/checkout@v3
       - name: Install Rust
@@ -18,7 +18,7 @@ jobs:
           profile: minimal
           toolchain: stable
       - name: Install dependencies
-        run: sudo apt install libgtk-4-dev build-essential libadwaita-1-dev
+        run: sudo dnf install gtk4-devel gcc libadwaita-devel
       - name: Build
         run: |
           cargo build -r
@@ -30,7 +30,6 @@ jobs:
           files: ./target/release/work-tracker-linux
 
   build-macos:
-    if: true
     name: Build for macOS
     runs-on: macos-latest
     steps:
