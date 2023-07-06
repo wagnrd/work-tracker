@@ -63,8 +63,8 @@ impl SimpleComponent for WelcomeScreen {
         vbox.append(&start_button);
 
         let start_time_label = gtk::Label::builder()
-            .label("From now")
             .halign(gtk::Align::Center)
+            .visible(false)
             .build();
         vbox.append(&start_time_label);
 
@@ -120,7 +120,6 @@ impl SimpleComponent for WelcomeScreen {
             WelcomeScreenInput::StartTimeNowSelected => self.custom_start_time = None,
             WelcomeScreenInput::CustomStartTimeSelected(time) => {
                 self.custom_start_time = Some(time);
-                println!("Custom time: {}", time);
                 self.is_time_picker_dialog_visible = false;
             }
         }
@@ -142,8 +141,9 @@ impl SimpleComponent for WelcomeScreen {
                 )
                 .as_str(),
             );
+            widgets.start_time_label.set_visible(true);
         } else {
-            widgets.start_time_label.set_label("From now");
+            widgets.start_time_label.set_visible(false);
         }
     }
 }
