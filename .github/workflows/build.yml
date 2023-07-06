@@ -10,6 +10,8 @@ jobs:
     name: Build for Linux
     runs-on: ubuntu-latest
     container: fedora:latest
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
       - uses: actions/checkout@v3
       - name: Install Rust
