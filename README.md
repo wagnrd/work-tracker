@@ -1,3 +1,5 @@
+![Work Tracker build pipeline](https://github.com/wagnrd/work-tracker/actions/workflows/build-and-release.yml/badge.svg)
+
 # Work Tracker
 A useful app to easily keep track of your work hours. Developed in Rust with Gtk4 via Relm4.
 
@@ -13,13 +15,16 @@ A useful app to easily keep track of your work hours. Developed in Rust with Gtk
 - [ ] Sync to online account to share data between PCs
 
 ## Platform support
-Currently only MacOS will be supported. But Linux is a future target as well.
+- GNU/Linux
+- macOS
+
+(Currently no future plans for Windows)
 
 ## Building from source
 ### Dependencies
 - Rust 1.69+
-- Gtk4 (with GLib >= 2.74)
-- Libadwaita
+- Gtk4 4.10+ (with GLib >= 2.74)
+- Libadwaita 1.2+
 
 ### Installation
 Install Rust via [Rustup](https://rustup.rs/).
