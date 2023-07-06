@@ -1,6 +1,6 @@
 use crate::components::counter::service;
 use relm4::gtk::glib::clone;
-use relm4::gtk::prelude::{BoxExt, ButtonExt, EditableExt};
+use relm4::gtk::prelude::*;
 use relm4::{gtk, ComponentParts, ComponentSender, SimpleComponent};
 
 pub struct Counter {
@@ -53,6 +53,7 @@ impl SimpleComponent for Counter {
         root: &Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
+        // up button
         let up_button = gtk::Button::builder()
             .icon_name("go-up-symbolic")
             .css_classes(["circular", "flat"])
@@ -64,6 +65,7 @@ impl SimpleComponent for Counter {
         up_button_box.set_center_widget(Some(&up_button));
         root.append(&up_button_box);
 
+        // entry
         let entry = gtk::Entry::builder()
             .text(init.initial_value.to_string())
             .build();
@@ -72,6 +74,7 @@ impl SimpleComponent for Counter {
         }));
         root.append(&entry);
 
+        // down button
         let down_button = gtk::Button::builder()
             .icon_name("go-down-symbolic")
             .css_classes(["circular", "flat"])

@@ -1,6 +1,6 @@
 use crate::components::time_picker::{TimePicker, TimePickerInit, TimePickerOutput};
 use relm4::adw::glib::clone;
-use relm4::adw::prelude::{AdwWindowExt, GtkWindowExt};
+use relm4::adw::prelude::AdwWindowExt;
 use relm4::gtk::prelude::{BoxExt, ButtonExt, WidgetExt};
 use relm4::{
     adw, gtk, Component, ComponentController, ComponentParts, ComponentSender, Controller,
@@ -82,8 +82,8 @@ impl SimpleComponent for TimePickerDialog {
             });
         time_picker.widget().set_margin_top(20);
         time_picker.widget().set_margin_bottom(20);
-        time_picker.widget().set_margin_start(80);
-        time_picker.widget().set_margin_end(80);
+        time_picker.widget().set_margin_start(75);
+        time_picker.widget().set_margin_end(75);
 
         let vbox = gtk::Box::builder()
             .orientation(gtk::Orientation::Vertical)

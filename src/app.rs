@@ -21,7 +21,7 @@ impl SimpleComponent for App {
 
     fn init_root() -> Self::Root {
         adw::Window::builder()
-            .title("Login Client")
+            .title("Work Tracker")
             .application(&relm4::main_adw_application())
             .default_width(300)
             .default_height(200)
@@ -37,12 +37,21 @@ impl SimpleComponent for App {
             .orientation(gtk::Orientation::Vertical)
             .build();
         root.set_content(Some(&vbox));
-        vbox.append(&adw::HeaderBar::default());
+
+        let view_stack = adw::ViewStack::default();
+
+        let header_bar = adw::HeaderBar::builder()
+            .centering_policy(adw::CenteringPolicy::Strict)
+            .title_widget(&adw::ViewSwitcherTitle::builder().stack(&view_stack).build())
+            .build();
+        vbox.append(&header_bar);
 
         let welcome_screen: Controller<WelcomeScreen> = WelcomeScreen::builder()
             .launch(())
             .forward(sender.input_sender(), identity);
-        vbox.append(welcome_screen.widget());
+        view_stack.add_titled(welcome_screen.widget(), Some("Test1"), "Test2");
+
+        vbox.append(&view_stack);
 
         let model = App {};
         let widgets = AppWidgets {
@@ -51,8 +60,4 @@ impl SimpleComponent for App {
 
         ComponentParts { model, widgets }
     }
-
-    fn update(&mut self, _msg: Self::Input, _sender: ComponentSender<Self>) {}
-
-    fn update_view(&self, _widgets: &mut Self::Widgets, _sender: ComponentSender<Self>) {}
 }
